@@ -24,6 +24,6 @@ export const useUserStore = create(
     {
       name: "user-store",
       storage: createJSONStorage(() => AsyncStorage),
-    }
-  )
+    },
+  ),
 );

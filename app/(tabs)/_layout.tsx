@@ -5,16 +5,13 @@ import Feather from "@expo/vector-icons/Feather";
 import { theme } from "../../theme";
 import { useUserStore } from "../../store/userStore";
 
-
 export default function Layout() {
-
   const hasFinishedOnboarding = useUserStore(
     (state) => state.hasFinishedOnboarding,
   );
 
-
   if (!hasFinishedOnboarding) {
-    return <Redirect href='/onboarding' />
+    return <Redirect href="/onboarding" />;
   }
 
   return (
