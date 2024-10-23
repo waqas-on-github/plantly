@@ -1,10 +1,10 @@
 import { FlatList, StyleSheet } from "react-native";
 
 import { useRouter } from "expo-router";
-import { usePlantStore } from "../../store/plantsStore";
-import { PlantCard } from "../../components/PlantCard";
-import { PlantlyButton } from "../../components/PlantlyButton";
-import { theme } from "../../theme";
+import { usePlantStore } from "../../../store/plantsStore";
+import { PlantCard } from "../../../components/PlantCard";
+import { PlantlyButton } from "../../../components/PlantlyButton";
+import { theme } from "../../../theme";
 
 export default function App() {
   const router = useRouter();

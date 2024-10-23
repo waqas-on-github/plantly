@@ -8,7 +8,7 @@ export type PlantType = {
   name: string;
   wateringFrequencyDays: number;
   lastWateredAtTimestamp?: number;
-  imageUri?: string;
+  imageInDevice?: string;
 };
 
 type PlantsState = {
@@ -17,7 +17,7 @@ type PlantsState = {
   addPlant: (
     name: string,
     wateringFrequencyDays: number,
-    imageUri?: string,
+    imageInDevice?: string,
   ) => Promise<void>;
   removePlant: (plantId: string) => void;
   waterPlant: (plantId: string) => void;
@@ -52,7 +52,7 @@ export const usePlantStore = create(
                 id: String(state.nextId),
                 name,
                 wateringFrequencyDays,
-                imageUri: imageUri ? savedImageUri : undefined,
+                imageInDevice: imageUri ? savedImageUri : undefined,
               },
               ...state.plants,
             ],
