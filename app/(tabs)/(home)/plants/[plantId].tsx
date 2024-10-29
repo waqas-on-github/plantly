@@ -1,10 +1,19 @@
 import { useLocalSearchParams, useNavigation, useRouter } from "expo-router";
-import { View, Text, StyleSheet, Pressable, Alert } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  Pressable,
+  Alert,
+  View,
+  Dimensions,
+  ScrollView,
+} from "react-native";
 import { usePlantStore } from "../../../../store/plantsStore";
 import { useEffect } from "react";
 import { PlantlyImage } from "../../../../components/PlantlyImage";
 import { PlantlyButton } from "../../../../components/PlantlyButton";
 import { theme } from "../../../../theme";
+import { differenceInCalendarDays, format } from "date-fns";
 
 const fullDateFormat = "LLL d yyyy, h:mm aaa";
 
@@ -64,32 +73,39 @@ export default function PlantDetails() {
   }
 
   return (
-    <View style={styles.detailsContainer}>
+    <ScrollView style={styles.detailsContainer}>
       <View style={{ alignItems: "center" }}>
-        <PlantlyImage imageUri={plant.imageInDevice} />
-        <View style={styles.spacer} />
+        {plant.imageInDevice ? (
+          <PlantlyImage imageUri={plant?.imageInDevice} styles={styles.image} />
+        ) : (
+          <PlantlyImage />
+        )}
         <Text style={styles.key}>Water me every</Text>
         <Text style={styles.value}>{plant.wateringFrequencyDays} days</Text>
         <Text style={styles.key}>Last watered at</Text>
-        {/* <Text style={styles.value}>
+        <Text style={styles.value}>
           {plant.lastWateredAtTimestamp
             ? `${format(plant.lastWateredAtTimestamp, fullDateFormat)}`
             : "Never 😟"}
-        </Text> */}
+        </Text>
         <Text style={styles.key}>Days since last watered</Text>
         <Text style={styles.value}>
-          {/* {plant.lastWateredAtTimestamp
+          {plant.lastWateredAtTimestamp
             ? differenceInCalendarDays(Date.now(), plant.lastWateredAtTimestamp)
-            : "N/A"} */}
+            : "N/A"}
         </Text>
       </View>
-      <PlantlyButton title="Water me!" onPress={handleWaterPlant} />
-      <Pressable style={styles.deleteButton} onPress={handleDeletePlant}>
-        <Text style={styles.deleteButtonText}>Delete</Text>
-      </Pressable>
-    </View>
+      <View style={styles.buttonsContainer}>
+        <PlantlyButton title="Water me!" onPress={handleWaterPlant} />
+        <Pressable style={styles.deleteButton} onPress={handleDeletePlant}>
+          <Text style={styles.deleteButtonText}>Delete</Text>
+        </Pressable>
+      </View>
+    </ScrollView>
   );
 }
+
+const { width } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   notFoundContainer: {
@@ -99,37 +115,41 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colorWhite,
   },
   notFoundText: {
-    fontSize: 18,
+    fontSize: 16,
+    textAlign: "center",
+    color: theme.colorBlack,
   },
-  detailsContainer: {
-    padding: 12,
-    backgroundColor: theme.colorWhite,
-    flex: 1,
-    justifyContent: "center",
+  detailsContainer: {},
+  image: {
+    width: width * 0.7,
+    height: width * 0.7,
+    borderRadius: 8,
+    marginBottom: 16,
   },
   key: {
-    marginRight: 8,
-    fontSize: 16,
+    fontSize: 14,
     color: theme.colorBlack,
     textAlign: "center",
+    marginBottom: 4,
   },
   value: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "bold",
     textAlign: "center",
-    marginBottom: 20,
+    marginBottom: 12,
     color: theme.colorGreen,
   },
+  buttonsContainer: {
+    width: "100%",
+    alignItems: "center",
+  },
   deleteButton: {
+    marginTop: 12,
     padding: 12,
-    justifyContent: "center",
     alignItems: "center",
   },
   deleteButtonText: {
     color: theme.colorGrey,
     fontWeight: "bold",
-  },
-  spacer: {
-    height: 18,
   },
 });

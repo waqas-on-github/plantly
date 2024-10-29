@@ -77,7 +77,7 @@ export default function NewScreen() {
         <PlantlyImage imageUri={imageUri} />
       </TouchableOpacity>
 
-      <Text style={styles.label}>Name</Text>
+      <Text style={styles.label}>Name </Text>
       <TextInput
         value={name}
         onChangeText={setName}

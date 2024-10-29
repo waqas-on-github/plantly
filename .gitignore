@@ -9,6 +9,8 @@ autoprettier.js
 .expo/
 dist/
 web-build/
+andriod/
+android/
 
 # Native
 *.orig.*
