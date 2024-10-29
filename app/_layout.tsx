@@ -7,7 +7,6 @@ import { useQuickActionRouting } from "expo-quick-actions/router";
 
 /* eslint-disable prettier/prettier */
 export default function Layout() {
-  useQuickActionRouting()
 
   useEffect(() => {
     QuickActions.setItems([
@@ -20,6 +19,13 @@ export default function Layout() {
       },
     ]);
   }, []);
+
+
+  useQuickActionRouting()
+
+
+
+
 
   return (
     <Stack>
